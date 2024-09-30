@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { LocalizationService } from 'src/localization/localization.service';
 import { MessageService } from 'src/message/message.service';
+import { localisedStrings } from 'src/i18n/en/localised-strings';
 
 dotenv.config();
 
