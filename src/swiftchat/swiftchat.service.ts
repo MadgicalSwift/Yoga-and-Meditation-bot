@@ -36,19 +36,103 @@ export class SwiftchatMessageService extends MessageService {
     );
     return response;
   }
+   
+      async sendLanguageSelectionMessage(from: string, language: string) {
+        const localisedStrings = LocalizationService.getLocalisedString(language);
+        const message = localisedStrings.languageSelection;
+    
+        const messageData = {
+          to: from,
+          type: 'button',
+          button: {
+            body: {
+              type: 'text',
+              text: {
+                body: message,
+              },
+            },
+            buttons: [
+              {
+                type: 'solid',
+                body: localisedStrings.language_english,
+                reply: 'English',
+              },
+              {
+                type: 'solid',
+                body: localisedStrings.language_hindi,
+                reply: 'hindi',
+              },
+            ],
+            allow_custom_response: false,
+          },
+        };
+    
+        return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+      }
+    
+  
+      public async sendLanguageChangedMessage(from: string, language: string) {
+        const localisedStrings = LocalizationService.getLocalisedString(language); // Fetch the correct localized strings
+        const requestData = this.prepareRequestData(
+            from,
+            localisedStrings.languageChangedMessage // Use localized string for language change confirmation
+        );
+    
+        const response = await this.sendMessage(this.baseUrl, requestData, this.apiKey);
+        return response;
+    }
+    
+    async AgeselectionMessage(from: string, language: string) {
+      const localisedStrings = LocalizationService.getLocalisedString(language);
+      const message = localisedStrings.askage;
+  
+      const messageData = {
+        to: from,
+        type: 'button',
+        button: {
+          body: {
+            type: 'text',
+            text: {
+              body: message,
+            },
+          },
+          buttons: [
+            {
+              type: 'solid',
+              body: '10-18',
+              reply: '10-18',
+            },
+            {
+              type: 'solid',
+              body:   '18- 24',
+              reply: '18-24',
+            },
+            {
+              type: 'solid',
+              body:   '24- 30',
+              reply: '24-30',
+            },
+            {
+              type: 'solid',
+              body:   '30-45',
+              reply: '30-45',
+            },
+            {
+              type: 'solid',
+              body:   '45+',
+              reply: '45+',
+            },
+            
+          ],
+          allow_custom_response: false,
+        },
+      };
+  
+      return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+    }
+  
+      
 
-  async sendLanguageChangedMessage(from: string, language: string) {
-    const localisedStrings = LocalizationService.getLocalisedString(language);
-    const requestData = this.prepareRequestData(
-      from,
-      localisedStrings.select_language,
-    );
+   }
+  
 
-    const response = await this.sendMessage(
-      this.baseUrl,
-      requestData,
-      this.apiKey,
-    );
-    return response;
-  }
-}

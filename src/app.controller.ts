@@ -23,19 +23,21 @@ export class AppController {
     });
   }
 
-  @Post('/message')
+  @Post('/yoga')
   async handelUserMessage(@Body() body, @Res() res): Promise<void> {
     try {
       const { from, text } = body;
-      this.chatbotService.processMessage(body);
-      log(body.from, text.body);
+      await this.chatbotService.processMessage(body);
+      
       res.status(200).send({
         status: {
           code: 0,
           message: 'Success',
         },
       });
+      
     } catch (error) {
+      console.log(error);
       res.status(500).send({
         status: {
           code: 1,
