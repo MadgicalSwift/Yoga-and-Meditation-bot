@@ -1,0 +1,19 @@
+{
+  "yoga": {
+    "Hatha": {
+      "description": "Hatha Yoga is the process of balancing the sun (Ha) and moon (Tha). It prepares the body for higher possibilities. Your posture reflects your mental state. By adopting different postures, you can elevate your consciousness."
+    },
+    "Vinyasa": {
+      "description": "Vinyasa Yoga is a dynamic style that flows through poses. It helps in building strength and flexibility."
+    },
+    "Ashtanga": {
+      "description": "Ashtanga Yoga is a rigorous style that follows a specific sequence of poses. It develops strength, flexibility, and balance."
+    },
+    "Yin": {
+      "description": "Yin Yoga is a slow-paced style that involves holding poses for longer periods. It provides deep stretching and promotes mental peace."
+    },
+    "Restorative": {
+      "description": "Restorative Yoga focuses on reducing stress and anxiety. It is ideal for physical and mental relaxation."
+    }
+  }
+}

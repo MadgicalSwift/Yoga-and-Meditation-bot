@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+ import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { LocalizationService } from 'src/localization/localization.service';
 import { MessageService } from 'src/message/message.service';
 import { localisedStrings } from 'src/i18n/en/localised-strings';
+import * as yogaDataEn from '../datasource/hindi.json';
+import * as yogaDatahi from '../datasource/english.json';
 
 dotenv.config();
 
@@ -13,6 +15,8 @@ export class SwiftchatMessageService extends MessageService {
   private apiUrl = process.env.API_URL;
   private baseUrl = `${this.apiUrl}/${this.botId}/messages`;
 
+ 
+ 
   private prepareRequestData(from: string, requestBody: string): any {
     return {
       to: from,
@@ -82,9 +86,9 @@ export class SwiftchatMessageService extends MessageService {
         return response;
     }
     
-    async AgeselectionMessage(from: string, language: string) {
+    async mainmenu(from: string, language: string) {
       const localisedStrings = LocalizationService.getLocalisedString(language);
-      const message = localisedStrings.askage;
+      const message = localisedStrings.guide;
   
       const messageData = {
         to: from,
@@ -99,30 +103,25 @@ export class SwiftchatMessageService extends MessageService {
           buttons: [
             {
               type: 'solid',
-              body: '10-18',
-              reply: '10-18',
+              body: localisedStrings.guidebutton[0],
+              reply: localisedStrings.guidebutton[0],
             },
             {
               type: 'solid',
-              body:   '18- 24',
-              reply: '18-24',
+              body:   localisedStrings.guidebutton[1],
+              reply: localisedStrings.guidebutton[1],
             },
             {
               type: 'solid',
-              body:   '24- 30',
-              reply: '24-30',
+              body:  localisedStrings.guidebutton[2],
+              reply: localisedStrings.guidebutton[2],
             },
             {
               type: 'solid',
-              body:   '30-45',
-              reply: '30-45',
+              body:   localisedStrings.guidebutton[3],
+              reply: localisedStrings.guidebutton[3],
             },
-            {
-              type: 'solid',
-              body:   '45+',
-              reply: '45+',
-            },
-            
+           
           ],
           allow_custom_response: false,
         },
@@ -130,9 +129,86 @@ export class SwiftchatMessageService extends MessageService {
   
       return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
     }
+    async poseselection(from: string, language: string) {
+      const localisedStrings = LocalizationService.getLocalisedString(language);
+      const message = localisedStrings.poseMessage;
   
-      
+      const messageData = {
+        to: from,
+        type: 'button',
+        button: {
+          body: {
+            type: 'text',
+            text: {
+              body: message,
+            },
+          },
+          buttons: [
+            {
+              type: 'solid',
+              body: localisedStrings.poseButtons[0],
+              reply: localisedStrings.poseButtons[0],
+            },
+            {
+              type: 'solid',
+              body:   localisedStrings.poseButtons[1],
+              reply: localisedStrings.poseButtons[1],
+            },
+            {
+              type: 'solid',
+              body:  localisedStrings.poseButtons[2],
+              reply: localisedStrings.poseButtons[2],
+            },
+            {
+              type: 'solid',
+              body:   localisedStrings.poseButtons[3],
+              reply: localisedStrings.poseButtons[3],
+            },
+            {
+              type: 'solid',
+              body:   localisedStrings.poseButtons[4],
+              reply: localisedStrings.poseButtons[4],
+            },
+           
+          ],
+          allow_custom_response: false,
+        },
+      };
+  
+      return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+    }
+    
+    async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
+      // Access the selected yoga pose data
+      const yogaType = yogaDatahi.yoga[selectedPose];
+    
+      if (yogaType) {
+        const Description = yogaType.description; // Get the description of the selected pose
+        const responseMessage = `${selectedPose}: \n\n${Description}`; // Format the response message
+    
+        // Prepare message data without buttons
+        const messageData = {
+          to: from,
+          type: 'text',
+          text: {
+            body: responseMessage, // Sending the description of the selected yoga pose
+          },
+        };
+    
+        // Send the message
+        return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+      } 
+    }
+    
+    
+    
+    
+    
+   
+    
+}
+ 
 
-   }
   
 
+ 

@@ -31,5 +31,7 @@ export abstract class MessageService {
   abstract sendWelcomeMessage(from: string, language: string);
   abstract sendLanguageSelectionMessage(from: string, language: string);
   abstract sendLanguageChangedMessage(from: string, language: string);
-  abstract AgeselectionMessage(from: string, language: string);
+  abstract mainmenu(from: string, language: string);
+  abstract poseselection(from: string, language: string);
+  abstract sendYogaPoseDescription(from: string, selectedPose: string, language: string);
 }

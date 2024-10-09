@@ -6,9 +6,11 @@ export class User {
 
   @IsString()
   language: string;
-
+ 
   @IsString()
   Botid: string;
+  id: string;
+  
 
   
 }

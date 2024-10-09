@@ -1,11 +1,18 @@
 export const localisedStrings = {
   languageSelection: '**Please select your language.**',
-  welcomeMessage: '**You are about to embark on a journey of peace and wellness with Yoga and Meditation.🙏**',
+  welcomeMessage: '**Hello! Welcome to your Yoga and Meditation assistant.**',
   languageChangedMessage: '***You have successfully changed your language to English.***',
-  askage: '*Before we proceed, may I ask how old you are*',
+  guide: "*I'm here to guide you through yoga practices and meditation techniques tailored to your needs.*",
+  guidebutton:['Yoga Practices','Meditation Techniques','Personalized Recommendations','Tips & Resources',],
   seeMoreMessage: 'See More Data',
   language_hindi: 'हिन्दी',
   language_english: 'English',
+  poseMessage: '**Please select a type of yoga from the following options:**',
+  poseButtons: ['Hatha','Vinyasa','Ashtanga','Yin','Restorative'],
+  moreDetails: "More Details on How to Perform Yoga",
+  mainMenu: "Main Menu",  
+
+
   
-  
+    
 };
