@@ -70,16 +70,16 @@ export class ChatbotService {
       }
      
 const Options = ['Yoga Practices','Meditation Techniques','Personalized Recommendations','Tips & Resources',"योग अभ्यास","ध्यान तकनीकें","व्यक्तिगत सिफारिशें","युक्तियाँ और संसाधन"]; 
-// First check if the button response is an age option
+
 if (buttonResponse =='Yoga Practices' ||buttonResponse =='योग अभ्यास' ) {
   console.log('Selected menu', buttonResponse); 
   await this.message.poseselection(from,  userData.language);
   
-  const selectedPose = buttonResponse.button_response.body;
+  /* const selectedPose = buttonResponse.button_response.body;
   console.log('Selected pose', selectedPose);
   
-  await this.swiftchatService.sendYogaPoseDescription(from, selectedPose,userData.language);
-  
+  await this.swiftchatService.sendYogaPoseDescription(from, selectedPose, userData.language);
+  */ 
   return; 
 } 
 

@@ -178,9 +178,10 @@ export class SwiftchatMessageService extends MessageService {
       return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
     }
     
-    async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
+   /*  async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
       // Access the selected yoga pose data
       const yogaType = yogaDatahi.yoga[selectedPose];
+      
     
       if (yogaType) {
         const Description = yogaType.description; // Get the description of the selected pose
@@ -198,7 +199,7 @@ export class SwiftchatMessageService extends MessageService {
         // Send the message
         return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
       } 
-    }
+    } */
     
     
     
