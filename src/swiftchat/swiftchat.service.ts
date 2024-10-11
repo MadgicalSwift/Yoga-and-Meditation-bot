@@ -3,8 +3,9 @@ import * as dotenv from 'dotenv';
 import { LocalizationService } from 'src/localization/localization.service';
 import { MessageService } from 'src/message/message.service';
 import { localisedStrings } from 'src/i18n/en/localised-strings';
-import * as yogaDataEn from '../datasource/hindi.json';
-import * as yogaDatahi from '../datasource/english.json';
+import * as yogaDataEn from '../datasource/english.json'; // English dataset
+import * as yogaDatahi from '../datasource/hindi.json'; // Hindi dataset
+
 
 dotenv.config();
 
@@ -178,30 +179,98 @@ export class SwiftchatMessageService extends MessageService {
       return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
     }
     
-   /*  async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
-      // Access the selected yoga pose data
-      const yogaType = yogaDatahi.yoga[selectedPose];
+    async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
+      const localisedStrings = LocalizationService.getLocalisedString(language);
       
+      const yogaData = language === 'hindi' ? yogaDatahi : yogaDataEn;
+      const normalizedPose = selectedPose.trim().toLowerCase();
+         
+      const yogaType = yogaData.yoga[normalizedPose];
+    if (yogaType) {
+          const description = yogaType.description;
+          const responseMessage = `**${selectedPose}**: \n\n*${description}*`;
     
-      if (yogaType) {
-        const Description = yogaType.description; // Get the description of the selected pose
-        const responseMessage = `${selectedPose}: \n\n${Description}`; // Format the response message
+          const messageData = {
+            to: from,
+            type: 'button',
+            button: {
+              body: {
+                type: 'text',
+                text: {
+                  body: responseMessage,
+                },
+              },
+              buttons: [
+                {
+                  type: 'solid',
+                  body: localisedStrings.moreDetails,
+                  reply: localisedStrings.moreDetails,
+                },
+                {
+                  type: 'solid',
+                  body:   localisedStrings.mainMenu,
+                  reply: localisedStrings.mainMenu,
+                },
+               
+               
+              ],
+              allow_custom_response: false,
+            },
+          };
     
-        // Prepare message data without buttons
-        const messageData = {
-          to: from,
-          type: 'text',
-          text: {
-            body: responseMessage, // Sending the description of the selected yoga pose
+          
+          return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+      }
+  }
+  
+  async sendMoreYogaDetails(from: string, selectedPose: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language);
+    const yogaData = language === 'hindi' ? yogaDatahi : yogaDataEn;
+    const normalizedPose = selectedPose.trim().toLowerCase();
+  
+    const yogaType = yogaData.yoga[normalizedPose];
+    if (yogaType) {
+      const steps = yogaType.steps; 
+      const videoUrl = yogaType.videoUrl; 
+      const moreDetailsMessage = language === 'hindi' ? localisedStrings.moreDetailsMessage:localisedStrings.moreDetailsMessage;
+
+      const responseMessage = `**${selectedPose}**\n${moreDetailsMessage}\n\n**Steps**:\n\n${steps}\n\nWatch tutorial: ${videoUrl}`;
+
+      const messageData = {
+        to: from,
+        type: 'button',
+        button: {
+          body: {
+            type: 'text',
+            text: {
+              body: responseMessage,
+            },
           },
-        };
-    
-        // Send the message
-        return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
-      } 
-    } */
-    
-    
+          buttons: [
+            {
+              type: 'solid',
+              body: localisedStrings.backToYogaPractices,
+              reply: localisedStrings.backToYogaPractices,
+            },
+            {
+              type: 'solid',
+              body: localisedStrings.backToMainMenu,
+              reply: localisedStrings.backToMainMenu,
+            },
+          ],
+          allow_custom_response: false,
+        },
+      };
+  
+      return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+    }
+  }
+  
+  
+
+  
+  
+  
     
     
     

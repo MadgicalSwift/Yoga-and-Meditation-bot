@@ -1,19 +1,30 @@
 {
-  "yoga": {
-    "Hatha": {
-      "description": "Hatha Yoga is the process of balancing the sun (Ha) and moon (Tha). It prepares the body for higher possibilities. Your posture reflects your mental state. By adopting different postures, you can elevate your consciousness."
-    },
-    "Vinyasa": {
-      "description": "Vinyasa Yoga is a dynamic style that flows through poses. It helps in building strength and flexibility."
-    },
-    "Ashtanga": {
-      "description": "Ashtanga Yoga is a rigorous style that follows a specific sequence of poses. It develops strength, flexibility, and balance."
-    },
-    "Yin": {
-      "description": "Yin Yoga is a slow-paced style that involves holding poses for longer periods. It provides deep stretching and promotes mental peace."
-    },
-    "Restorative": {
-      "description": "Restorative Yoga focuses on reducing stress and anxiety. It is ideal for physical and mental relaxation."
+    "yoga": {
+      "hatha": {
+        "description": "Hatha Yoga is the process of balancing the sun (Ha) and moon (Tha). It prepares the body for higher possibilities. Your posture reflects your mental state. By adopting different postures, you can elevate your consciousness.",
+        "steps": "1. Begin in Mountain Pose (Tadasana), standing tall with feet together.\n2. Inhale, raise your arms overhead, and gently bend backward into a slight backbend.\n3. Exhale, fold forward into a Standing Forward Bend (Uttanasana).\n4. Step back into a Low Lunge (Anjaneyasana) with the right leg.\n5. Move into Downward-Facing Dog (Adho Mukha Svanasana).\n6. Repeat the sequence, switching sides.\n7. Finish with Corpse Pose (Savasana) for relaxation.",
+        "videoUrl": "https://yoga-videos.com/hatha"
+      },
+      "vinyasa": {
+        "description": "Vinyasa Yoga is a dynamic style that flows through poses. It helps in building strength and flexibility.",
+        "steps": "1. Start in Downward-Facing Dog (Adho Mukha Svanasana).\n2. Inhale, shift forward to Plank Pose.\n3. Exhale, lower into Chaturanga Dandasana (Four-Limbed Staff Pose).\n4. Inhale, rise to Upward-Facing Dog (Urdhva Mukha Svanasana).\n5. Exhale, return to Downward-Facing Dog.\n6. Flow through this sequence, syncing your breath with each movement.\n7. End in Child's Pose (Balasana) for rest.",
+        "videoUrl": "https://yoga-videos.com/vinyasa"
+      },
+      "ashtanga": {
+        "description": "Ashtanga Yoga is a rigorous style that follows a specific sequence of poses. It develops strength, flexibility, and balance.",
+        "steps": "1. Begin with Sun Salutation A (Surya Namaskar A), performing five rounds.\n2. Follow with Sun Salutation B (Surya Namaskar B), completing five rounds.\n3. Move through the standing series: Warrior I (Virabhadrasana I), Warrior II (Virabhadrasana II), Triangle Pose (Trikonasana), etc.\n4. Transition into the seated series, including Forward Bend (Paschimottanasana) and Marichyasana twists.\n5. Practice the finishing sequence with Shoulder Stand (Sarvangasana), Headstand (Sirsasana), and Lotus Pose (Padmasana).\n6. Conclude with relaxation in Savasana.",
+        "videoUrl": "https://yoga-videos.com/ashtanga"
+      },
+      "yin": {
+        "description": "Yin Yoga is a slow-paced style that involves holding poses for longer periods. It provides deep stretching and promotes mental peace.",
+        "steps": "1. Begin in Butterfly Pose (Baddha Konasana), holding the pose for 3-5 minutes.\n2. Move into Seated Forward Fold (Paschimottanasana), hold for 3-5 minutes.\n3. Transition into Dragon Pose (Low Lunge), staying on each side for 3-5 minutes.\n4. Move to Reclining Twist (Supta Matsyendrasana), holding each side for 3-5 minutes.\n5. Finish with Savasana, focusing on deep, mindful breathing for relaxation.",
+        "videoUrl": "https://yoga-videos.com/yin"
+      },
+      "restorative": {
+        "description": "Restorative Yoga focuses on reducing stress and anxiety. It is ideal for physical and mental relaxation.",
+        "steps": "1. Begin in Supported Child's Pose (Balasana) with a bolster or pillows under your chest.\n2. Move into Supported Bridge Pose (Setu Bandhasana) using a block under your sacrum.\n3. Transition to Reclined Bound Angle Pose (Supta Baddha Konasana), supported by blocks or cushions.\n4. Rest in Legs-Up-The-Wall Pose (Viparita Karani) with your legs elevated against a wall.\n5. Conclude with Savasana, focusing on slow, deep breaths to calm the mind and body.",
+        "videoUrl": "https://yoga-videos.com/restorative"
+      }
     }
   }
-}
+  
