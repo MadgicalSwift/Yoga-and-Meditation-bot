@@ -12,7 +12,7 @@ export const localisedStrings = {
   moreDetails: "More Details on How to Perform Yoga",
   mainMenu: "Main Menu",  
 
-
+  askingQusetion:"please ask you query"
   
     
 };

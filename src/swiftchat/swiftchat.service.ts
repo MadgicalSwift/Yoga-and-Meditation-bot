@@ -1,4 +1,4 @@
- import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as dotenv from 'dotenv';
 import { LocalizationService } from 'src/localization/localization.service';
 import { MessageService } from 'src/message/message.service';
@@ -15,8 +15,6 @@ export class SwiftchatMessageService extends MessageService {
   private apiUrl = process.env.API_URL;
   private baseUrl = `${this.apiUrl}/${this.botId}/messages`;
 
- 
- 
   private prepareRequestData(from: string, requestBody: string): any {
     return {
       to: from,
@@ -40,145 +38,146 @@ export class SwiftchatMessageService extends MessageService {
     );
     return response;
   }
-   
-      async sendLanguageSelectionMessage(from: string, language: string) {
-        const localisedStrings = LocalizationService.getLocalisedString(language);
-        const message = localisedStrings.languageSelection;
-    
-        const messageData = {
-          to: from,
-          type: 'button',
-          button: {
-            body: {
-              type: 'text',
-              text: {
-                body: message,
-              },
-            },
-            buttons: [
-              {
-                type: 'solid',
-                body: localisedStrings.language_english,
-                reply: 'English',
-              },
-              {
-                type: 'solid',
-                body: localisedStrings.language_hindi,
-                reply: 'hindi',
-              },
-            ],
-            allow_custom_response: false,
+
+  async sendLanguageSelectionMessage(from: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language);
+    const message = localisedStrings.languageSelection;
+
+    const messageData = {
+      to: from,
+      type: 'button',
+      button: {
+        body: {
+          type: 'text',
+          text: {
+            body: message,
           },
-        };
-    
-        return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
-      }
-    
-  
-      public async sendLanguageChangedMessage(from: string, language: string) {
-        const localisedStrings = LocalizationService.getLocalisedString(language); // Fetch the correct localized strings
-        const requestData = this.prepareRequestData(
-            from,
-            localisedStrings.languageChangedMessage // Use localized string for language change confirmation
-        );
-    
-        const response = await this.sendMessage(this.baseUrl, requestData, this.apiKey);
-        return response;
-    }
-    
-    async mainmenu(from: string, language: string) {
-      const localisedStrings = LocalizationService.getLocalisedString(language);
-      const message = localisedStrings.guide;
-  
-      const messageData = {
-        to: from,
-        type: 'button',
-        button: {
-          body: {
-            type: 'text',
-            text: {
-              body: message,
-            },
-          },
-          buttons: [
-            {
-              type: 'solid',
-              body: localisedStrings.guidebutton[0],
-              reply: localisedStrings.guidebutton[0],
-            },
-            {
-              type: 'solid',
-              body:   localisedStrings.guidebutton[1],
-              reply: localisedStrings.guidebutton[1],
-            },
-            {
-              type: 'solid',
-              body:  localisedStrings.guidebutton[2],
-              reply: localisedStrings.guidebutton[2],
-            },
-            {
-              type: 'solid',
-              body:   localisedStrings.guidebutton[3],
-              reply: localisedStrings.guidebutton[3],
-            },
-           
-          ],
-          allow_custom_response: false,
         },
-      };
-  
-      return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
-    }
-    async poseselection(from: string, language: string) {
-      const localisedStrings = LocalizationService.getLocalisedString(language);
-      const message = localisedStrings.poseMessage;
-  
-      const messageData = {
-        to: from,
-        type: 'button',
-        button: {
-          body: {
-            type: 'text',
-            text: {
-              body: message,
-            },
+        buttons: [
+          {
+            type: 'solid',
+            body: localisedStrings.language_english,
+            reply: 'English',
           },
-          buttons: [
-            {
-              type: 'solid',
-              body: localisedStrings.poseButtons[0],
-              reply: localisedStrings.poseButtons[0],
-            },
-            {
-              type: 'solid',
-              body:   localisedStrings.poseButtons[1],
-              reply: localisedStrings.poseButtons[1],
-            },
-            {
-              type: 'solid',
-              body:  localisedStrings.poseButtons[2],
-              reply: localisedStrings.poseButtons[2],
-            },
-            {
-              type: 'solid',
-              body:   localisedStrings.poseButtons[3],
-              reply: localisedStrings.poseButtons[3],
-            },
-            {
-              type: 'solid',
-              body:   localisedStrings.poseButtons[4],
-              reply: localisedStrings.poseButtons[4],
-            },
-           
-          ],
-          allow_custom_response: false,
+          {
+            type: 'solid',
+            body: localisedStrings.language_hindi,
+            reply: 'hindi',
+          },
+        ],
+        allow_custom_response: false,
+      },
+    };
+
+    return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+  }
+
+  public async sendLanguageChangedMessage(from: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language); // Fetch the correct localized strings
+    const requestData = this.prepareRequestData(
+      from,
+      localisedStrings.languageChangedMessage, // Use localized string for language change confirmation
+    );
+
+    const response = await this.sendMessage(
+      this.baseUrl,
+      requestData,
+      this.apiKey,
+    );
+    return response;
+  }
+
+  async mainmenu(from: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language);
+    const message = localisedStrings.guide;
+
+    const messageData = {
+      to: from,
+      type: 'button',
+      button: {
+        body: {
+          type: 'text',
+          text: {
+            body: message,
+          },
         },
-      };
-  
-      return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
-    }
-    
-   /*  async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
+        buttons: [
+          {
+            type: 'solid',
+            body: localisedStrings.guidebutton[0],
+            reply: localisedStrings.guidebutton[0],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.guidebutton[1],
+            reply: localisedStrings.guidebutton[1],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.guidebutton[2],
+            reply: localisedStrings.guidebutton[2],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.guidebutton[3],
+            reply: localisedStrings.guidebutton[3],
+          },
+        ],
+        allow_custom_response: false,
+      },
+    };
+
+    return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+  }
+  async poseselection(from: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language);
+    const message = localisedStrings.poseMessage;
+
+    const messageData = {
+      to: from,
+      type: 'button',
+      button: {
+        body: {
+          type: 'text',
+          text: {
+            body: message,
+          },
+        },
+        buttons: [
+          {
+            type: 'solid',
+            body: localisedStrings.poseButtons[0],
+            reply: localisedStrings.poseButtons[0],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.poseButtons[1],
+            reply: localisedStrings.poseButtons[1],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.poseButtons[2],
+            reply: localisedStrings.poseButtons[2],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.poseButtons[3],
+            reply: localisedStrings.poseButtons[3],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.poseButtons[4],
+            reply: localisedStrings.poseButtons[4],
+          },
+        ],
+        allow_custom_response: false,
+      },
+    };
+
+    return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+  }
+
+  /*  async sendYogaPoseDescription(from: string, selectedPose: string, language: string) {
       // Access the selected yoga pose data
       const yogaType = yogaDatahi.yoga[selectedPose];
       
@@ -200,16 +199,29 @@ export class SwiftchatMessageService extends MessageService {
         return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
       } 
     } */
-    
-    
-    
-    
-    
-   
-    
+
+  async sendTextMessage(from: string, language: string) {
+    const userLanguage = LocalizationService.getLocalisedString(language);
+    const message = userLanguage.askingQusetion;
+    const messageData = {
+      to: from,
+      type: 'text',
+      text: {
+        body: message,
+      },
+    };
+    return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+  }
+  async sendResponseToTheUSer(from: string, res:string,language: string) {
+    const userLanguage = LocalizationService.getLocalisedString(language);
+    const message = userLanguage.askingQusetion;
+    const messageData = {
+      to: from,
+      type: 'text',
+      text: {
+        body: res,
+      },
+    };
+    return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+  }
 }
- 
-
-  
-
- 

@@ -8,6 +8,7 @@ import { UserService } from 'src/model/user.service'; // Ensure the path is corr
 import { SwiftchatMessageService } from 'src/swiftchat/swiftchat.service';
 import { MessageService } from 'src/message/message.service';
 import { UserModule } from 'src/model/user.module'; // Import UserModule
+import { AiBotService } from 'src/common/utils/aibot.service';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { UserModule } from 'src/model/user.module'; // Import UserModule
       provide: MessageService,
       useClass: SwiftchatMessageService,
     },
+    AiBotService
   ],
   exports: [ChatbotService, IntentClassifier],
 })

@@ -9,6 +9,5 @@ export const localisedStrings = {
   poseButtons: ['हठ','विन्यास','अस्थांग','यिन','विश्राम'],
   moreDetails: "योग करने के लिए अधिक विवरण",
   mainMenuHindi: "मुख्य मेनू",
-
-        
+  askingQusetion:"क��प��ा प्र��्� ��र्� करे�"
 };

@@ -11,67 +11,48 @@ export class UserService {
     mobileNumber: string,
     language: string,
     botID: string,
-  ): Promise<User | null> {
+  ): Promise<User | any> {
     try {
-      // Check if the user already exists
-      let user = await this.findUserByMobileNumber(mobileNumber, botID);
+      const newUser = {
+        id: uuidv4(),
+        mobileNumber: mobileNumber,
+        language: language,
+        Botid: botID,
+        chat_history: [],        // Initialize chat history as an empty array
+        chat_summary: '',        // Initialize chat summary as an empty string
+      };
 
-      if (user) {
-        // If user exists, update their information
-        const updateUser = {
-          TableName: USERS_TABLE,
-          Item: user,
-        };
-        await dynamoDBClient().put(updateUser).promise();
-        return user; // Return the updated user
-      } else {
-        // If user does not exist, create a new user
-        const newUser = {
-          mobileNumber: mobileNumber,
-          language: language,
-          Botid: botID,
-          id: uuidv4(), // Generate a unique ID for the user
-        };
-
-        const createUserParams = {
-          TableName: USERS_TABLE,
-          Item: newUser,
-        };
-        await dynamoDBClient().put(createUserParams).promise();
-        return newUser; // Return the new user
-      }
+      const params = {
+        TableName: USERS_TABLE,
+        Item: newUser,
+      };
+      await dynamoDBClient().put(params).promise();
+      return newUser; // Return just the user object
     } catch (error) {
       console.error('Error in createUser:', error);
-      return null; // Return null on error
+      throw error; // Consider throwing the error for handling elsewhere
     }
   }
 
-  async findUserByMobileNumber(mobileNumber: string, Botid: string): Promise<User | null> {
+  async findUserByMobileNumber(
+    mobileNumber: string,
+    Botid: string,
+  ): Promise<User | any> {
     try {
       const params = {
         TableName: USERS_TABLE,
-        KeyConditionExpression: 'mobileNumber = :mobileNumber and Botid = :Botid',
+        KeyConditionExpression:
+          'mobileNumber = :mobileNumber and Botid = :Botid',
         ExpressionAttributeValues: {
           ':mobileNumber': mobileNumber,
           ':Botid': Botid,
         },
       };
       const result = await dynamoDBClient().query(params).promise();
-
-      // Return a User object or null
-      if (result.Items && result.Items.length > 0) {
-        const userData = result.Items[0];
-        return {
-          mobileNumber: userData.mobileNumber,
-          language: userData.language,
-          Botid: userData.Botid,
-          id: userData.id, // Include ID if needed
-        } as User; // Type assertion to User
-      }
-      return null; // Return null if no user found
+      return result.Items?.[0] || null; // Return the first item or null if none found
     } catch (error) {
       console.error('Error querying user from DynamoDB:', error);
-      return null; // Return null on error
+      return null;
     }
   }
 
@@ -83,12 +64,40 @@ export class UserService {
           mobileNumber: user.mobileNumber,
           language: user.language,
           Botid: user.Botid,
-         // id: user.id, // Ensure you're including the ID if necessary
+          chat_history: user.chat_history,   // Save chat history
+          chat_summary: user.chat_summary,   // Save chat summary
         },
       };
       await dynamoDBClient().put(updateUser).promise(); // Save the user
     } catch (error) {
       console.error('Error saving user to DynamoDB:', error);
+    }
+  }
+
+  // New method to update chat history and summary for a user
+  async updateUserHistory(
+    mobileNumber: string,
+    Botid: string,
+    chat_history: any[],
+    chat_summary: string,
+  ): Promise<void> {
+    try {
+      const params = {
+        TableName: USERS_TABLE,
+        Key: {
+          mobileNumber: mobileNumber,
+          Botid: Botid,
+        },
+        UpdateExpression: 'set chat_history = :chat_history, chat_summary = :chat_summary',
+        ExpressionAttributeValues: {
+          ':chat_history': chat_history,
+          ':chat_summary': chat_summary,
+        },
+      };
+      await dynamoDBClient().update(params).promise();
+    
+    } catch (error) {
+      console.error('Error updating user history in DynamoDB:', error);
     }
   }
 
