@@ -75,102 +75,57 @@ export class ChatbotService {
 const PoseButtons = userData.language === 'hindi' ? ['हठ', 'विन्यास', 'अस्थांग', 'यिन', 'विश्राम'] : ['Hatha', 'Vinyasa', 'Ashtanga', 'Yin', 'Restorative'];
 const mediButtons = userData.language === 'hindi' ? ["माइंडफुलनेस" , "निर्देशित दृश्यता","प्रेम-करुणा" ,"शरीर स्कैन"] : ["Mindfulness", "Guided Visualization","Loving-Kindness","Body Scan"];
 
-if (buttonResponse == 'Yoga Practices' || buttonResponse == 'योग अभ्यास') {
-  console.log('Selected menu', buttonResponse);
+if (buttonResponse == localisedStrings.guidebutton[0] || buttonResponse == 'योग अभ्यास') {
   await this.message.poseselection(from, userData.language);
   return; 
 } else if (PoseButtons.includes(buttonResponse)) {
   this.selectedPose = buttonResponse; 
-  console.log(`User selected pose: ${this.selectedPose}`); 
   await this.message.sendYogaPoseDescription(from, this.selectedPose, userData.language);
   return;
-} else if (buttonResponse === 'योग करने के लिए अधिक विवरण' || buttonResponse === 'More Details on How to Perform Yoga') {
-  console.log('Requesting more details for pose:', this.selectedPose);
+} else if (buttonResponse === 'योग करने के लिए अधिक विवरण' || buttonResponse === localisedStrings.moreDetails) {
   if (this.selectedPose) { 
       await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);
-  } else {
-      console.log('No pose selected for more details.');
-  }
+  } 
   return;
 } else if (buttonResponse === localisedStrings.mainMenu || buttonResponse === 'मुख्य मेनू') {
-  console.log('Navigating to main menu');
   await this.message.mainmenu(from, userData.language);
-} else if (buttonResponse === "योग अभ्यास पर वापस जाएं" || buttonResponse === "Back to Yoga Practices") {
-  console.log('User clicked Back to Yoga Practices');
+} else if (buttonResponse === "योग अभ्यास पर वापस जाएं" || buttonResponse === localisedStrings.backToYogaPractices) {
   if (this.selectedPose) { 
       await this.message.poseselection(from, userData.language);
-  } else {
-      console.log('No pose selected for more details.');
-  }
+  } 
   return;
 } else if (buttonResponse === localisedStrings.backToMainMenu || buttonResponse === 'मुख्य मेनू पर वापस जाएं') {
-  console.log('Navigating to main menu');
   await this.message.mainmenu(from, userData.language);
 }
 
 // Meditation Techniques
-else if (buttonResponse == 'Meditation Techniques' || buttonResponse == "ध्यान तकनीकें") {
-  console.log('Meditation Techniques');
+else if (buttonResponse == localisedStrings.guidebutton[1] || buttonResponse == "ध्यान तकनीकें") {
   await this.message.meditationSelection(from, userData.language);
   return; 
 } else if (mediButtons.includes(buttonResponse)) {
   this.selectedstyle = buttonResponse; 
-  console.log(`User selected style: ${this.selectedstyle}`);
   await this.message.sendMeditationDescription(from, this.selectedstyle, userData.language);
   return;
-} else if (buttonResponse === "ध्यान के लिए अधिक विवरण" || buttonResponse === "More Details for Meditation") {
+} else if (buttonResponse === "ध्यान के लिए अधिक विवरण" || buttonResponse === localisedStrings.moreDetailsmeditation) {
   if (this.selectedstyle) { 
       await this.message.sendMoreMeditationDetails(from, this.selectedstyle, userData.language);
-  } else {
-      console.log('No style selected for more details.');
-  }
+  } 
   return;
-} else if (buttonResponse === "ध्यान अभ्यासों पर वापस जाएं" || buttonResponse === "Back to Meditation Practices") {
-  console.log('User clicked Back to Meditation Practices');
+} else if (buttonResponse === "ध्यान अभ्यासों पर वापस जाएं" || buttonResponse === localisedStrings.backToMeditationPractices) {
   if (this.selectedstyle) { 
       await this.message.meditationSelection(from, userData.language);
-  } else {
-      console.log('No style selected for more details.');
-  }
+  } 
   return;
 }
 
 // Personalized Recommendations
-else if (buttonResponse == 'Personalized Recommendations' || buttonResponse == "व्यक्तिगत सिफारिशें") { 
-  console.log('Personalized Recommendations'); 
+else if (buttonResponse == localisedStrings.guidebutton[2] || buttonResponse == "व्यक्तिगत सिफारिशें") { 
+  
   return; 
-} else if (buttonResponse == 'Tips & Resources' || buttonResponse == "युक्तियाँ और संसाधन") {
-  console.log('युक्तियाँ और संसाधन'); 
+} else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == "युक्तियाँ और संसाधन") {
+  await this.message.sendRandomYogaMeditationTip(from, userData.language);
   return; 
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
 
 }
       

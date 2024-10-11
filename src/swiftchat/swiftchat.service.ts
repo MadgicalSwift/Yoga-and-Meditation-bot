@@ -188,7 +188,7 @@ export class SwiftchatMessageService extends MessageService {
       const yogaType = yogaData.yoga[normalizedPose];
     if (yogaType) {
           const description = yogaType.description;
-          const responseMessage = `**${selectedPose}**: \n\n*${description}*`;
+          const responseMessage = `**${selectedPose}**: \n\n${description}`;
     
           const messageData = {
             to: from,
@@ -234,7 +234,7 @@ export class SwiftchatMessageService extends MessageService {
       const videoUrl = yogaType.videoUrl; 
       const moreDetailsMessage = language === 'hindi' ? localisedStrings.moreDetailsMessage:localisedStrings.moreDetailsMessage;
 
-      const responseMessage = `**${selectedPose}**\n${moreDetailsMessage}\n\n**Steps**:\n\n${steps}\n\nWatch tutorial: ${videoUrl}`;
+      const responseMessage = `**${selectedPose}**\n${moreDetailsMessage}\n\n**${localisedStrings.steps}**\n\n${steps}\n\n${localisedStrings.watchTutorial} ${videoUrl}`;
 
       const messageData = {
         to: from,
@@ -245,7 +245,7 @@ export class SwiftchatMessageService extends MessageService {
             text: {
               body: responseMessage,
             },
-          },
+      },
           buttons: [
             {
               type: 'solid',
@@ -317,7 +317,7 @@ export class SwiftchatMessageService extends MessageService {
   
       if (meditationType) {
           const description = meditationType.description; 
-          const responseMessage = `**${selectedStyle}**: \n\n*${description}*`; 
+          const responseMessage = `**${selectedStyle}**: \n\n${description}`; 
   
           const messageData = {
               to: from,
@@ -364,7 +364,7 @@ export class SwiftchatMessageService extends MessageService {
 
         const moreDetailsMessage = localisedStrings.moreDetailsMessage;
 
-        const responseMessage = `**${selectedMeditation}**\n${moreDetailsMessage}\n\n**Steps**:\n\n${steps}\n\nWatch tutorial: ${videoUrl}`;
+        const responseMessage = `**${selectedMeditation}**\n${moreDetailsMessage}\n\n**${localisedStrings.steps}**\n\n${steps}\n\n${localisedStrings.watchTutorial} ${videoUrl}`;
 
         const messageData = {
             to: from,
@@ -396,7 +396,38 @@ export class SwiftchatMessageService extends MessageService {
     }
 }
 
-  
+async sendRandomYogaMeditationTip(from: string, language: string) {
+  const localisedStrings = LocalizationService.getLocalisedString(language);
+  const yogaData = language === 'hindi' ? yogaDatahi : yogaDataEn;
+  const tips = yogaData.yoga_meditation_tips;
+  const randomIndex = Math.floor(Math.random() * tips.length);
+  const selectedTip = tips[randomIndex];
+  const responseMessage = `***${selectedTip.tip}***\n\n **${selectedTip.description}**`;
+
+  const messageData = {
+      to: from,
+      type: 'button',
+      button: {
+          body: {
+              type: 'text',
+              text: {
+                  body: responseMessage,
+              },
+          },
+          buttons: [
+              {
+                  type: 'solid',
+                  body: localisedStrings.backToMainMenu,
+                  reply: localisedStrings.backToMainMenu,
+              },
+          ],
+          allow_custom_response: false,
+      },
+  };
+
+  return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+}
+
 
   
   

@@ -37,4 +37,5 @@ export abstract class MessageService {
   abstract meditationSelection(from: string, language: string);
   abstract sendMeditationDescription(from: string, selectedstyle: string, language: string);
   abstract sendMoreMeditationDetails(from: string, selectedstyle: string, language: string);
+  abstract sendRandomYogaMeditationTip(from: string, language: string);
 }

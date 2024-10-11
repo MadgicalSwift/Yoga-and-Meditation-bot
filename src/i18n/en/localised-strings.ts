@@ -11,12 +11,12 @@ export const localisedStrings = {
   poseButtons: ['Hatha','Vinyasa','Ashtanga','Yin','Restorative'],
   moreDetails: "More Details on How to Perform Yoga",
   mainMenu: "Main Menu", 
-  moreDetailsMessage: "Here are some video tutorials and steps to perform the selected yoga style. Would you like to go back to Yoga Practices or the Main Menu?",
+  moreDetailsMessage: "**Here are some video tutorials and steps to perform the selected yoga style.**",
   backToYogaPractices: "Back to Yoga Practices",
   backToMainMenu: "Back to Main Menu",
-   
-
-  meditationstyle:"Please select a meditation style:",
+  steps: "*Here are some steps:*",
+  watchTutorial: "Watch tutorial: ",
+  meditationstyle:"**Please select a meditation style:**",
   stylebutton:["Mindfulness", "Guided Visualization","Loving-Kindness","Body Scan"],
   moreDetailsmeditation: "More Details for Meditation",
   backToMeditationPractices: "Back to Meditation Practices",
