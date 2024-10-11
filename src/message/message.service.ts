@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { CustomException } from 'src/common/exception/custom.exception';
 import { localisedStrings } from 'src/i18n/en/localised-strings';
-import { LocalizationService } from 'src/localization/localization.service';
 
 
 @Injectable()
@@ -35,4 +34,7 @@ export abstract class MessageService {
   abstract poseselection(from: string, language: string);
   abstract sendYogaPoseDescription(from: string, selectedPose: string, language: string);
   abstract sendMoreYogaDetails(from: string, selectedPose: string, language: string);
+  abstract meditationSelection(from: string, language: string);
+  abstract sendMeditationDescription(from: string, selectedstyle: string, language: string);
+  abstract sendMoreMeditationDetails(from: string, selectedstyle: string, language: string);
 }

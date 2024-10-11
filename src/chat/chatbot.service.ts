@@ -15,7 +15,7 @@ export class ChatbotService {
   private readonly userService: UserService;
   private readonly swiftchatService: SwiftchatMessageService; 
   private selectedPose: string | null = null; 
-
+  private selectedstyle: string | null = null;
 
   constructor(
     intentClassifier: IntentClassifier,
@@ -32,173 +32,167 @@ export class ChatbotService {
   public async processMessage(body: any): Promise<any> {
     const { from, type } = body;
     const botID = process.env.BOT_ID;
-
-    // Fetch user data based on mobile number and bot ID
     const userData = await this.userService.findUserByMobileNumber(from, botID);
-
-    // Ensure the user has a default language set if it's not already there
-    if (!userData.language) {
+  if (!userData.language) {
       userData.language = 'english';
       await this.userService.saveUser(userData);
-    }
+  }
 
-    if (type === 'persistent_menu_response') {
-      const menuBody = body.persistent_menu_response?.body;
-      console.log('Received persistent_menu_response with body:', menuBody);
-    
-      if (!menuBody) {
+  if (type === 'persistent_menu_response') {
+    const menuBody = body.persistent_menu_response?.body; 
+    if (!menuBody) {
         console.error('Menu body is missing');
-      }
-    
-      switch (menuBody) {
-        case 'change language':
-          console.log('User selected "change language"');
-          try {
-            await this.message.sendLanguageSelectionMessage(from, userData.language);
-          } catch (error) {
-            console.error('Error in sendLanguageSelectionMessage:', error);
-          }
-          return;
-    
-        default:
-          console.error('Unexpected menu option:', menuBody);
-          return;
-      }
+        return;  }
+
+    switch (menuBody.toLowerCase()) { 
+      case 'change language':
+            console.log('User selected "change language"');
+            try {
+                await this.message.sendLanguageSelectionMessage(from, userData.language);
+            } catch (error) {
+                console.error('Error in sendLanguageSelectionMessage:', error);
+            }
+            return;
+            default:
+            console.error('Unexpected menu option:', menuBody);
+            return; 
     }
-    
-    
-      
-    if (type == 'button_response') {
-      const buttonResponse = body.button_response?.body; // Get the button response body
-      
+}
+ 
+  else  if (type == 'button_response') {
+      const buttonResponse = body.button_response?.body; 
         if (['english', 'hindi'].includes(buttonResponse.toLowerCase())) {
-        userData.language = buttonResponse; // Update user language
-        await this.userService.saveUser(userData); // Save updated language
+        userData.language = buttonResponse; 
+        await this.userService.saveUser(userData); 
 
         await this.message.sendLanguageChangedMessage(from, buttonResponse);
         await this.message.mainmenu(from, buttonResponse);
         
         return; 
       }
-if (buttonResponse =='Yoga Practices' ||buttonResponse =='योग अभ्यास' ) {
-  console.log('Selected menu', buttonResponse); 
-  await this.message.poseselection(from, userData.language);
-    return; 
-} 
-  
+
+      
 const PoseButtons = userData.language === 'hindi' ? ['हठ', 'विन्यास', 'अस्थांग', 'यिन', 'विश्राम'] : ['Hatha', 'Vinyasa', 'Ashtanga', 'Yin', 'Restorative'];
-let selectedPose: string | undefined; 
+const mediButtons = userData.language === 'hindi' ? ["माइंडफुलनेस" , "निर्देशित दृश्यता","प्रेम-करुणा" ,"शरीर स्कैन"] : ["Mindfulness", "Guided Visualization","Loving-Kindness","Body Scan"];
 
-if (PoseButtons.includes(buttonResponse)) {
-   this.selectedPose = buttonResponse; 
-  console.log(`User selected pose: ${selectedPose}`); 
+if (buttonResponse == 'Yoga Practices' || buttonResponse == 'योग अभ्यास') {
+  console.log('Selected menu', buttonResponse);
+  await this.message.poseselection(from, userData.language);
+  return; 
+} else if (PoseButtons.includes(buttonResponse)) {
+  this.selectedPose = buttonResponse; 
+  console.log(`User selected pose: ${this.selectedPose}`); 
   await this.message.sendYogaPoseDescription(from, this.selectedPose, userData.language);
-
   return;
-} 
- 
-if (buttonResponse === 'योग करने के लिए अधिक विवरण' ||buttonResponse==='More Details on How to Perform Yoga') {
+} else if (buttonResponse === 'योग करने के लिए अधिक विवरण' || buttonResponse === 'More Details on How to Perform Yoga') {
   console.log('Requesting more details for pose:', this.selectedPose);
-
-        if (this.selectedPose) { 
-          await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);
-        } else {
-           console.log('No pose selected for more details.');
-              }
+  if (this.selectedPose) { 
+      await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);
+  } else {
+      console.log('No pose selected for more details.');
+  }
   return;
-}
-
-
-if (buttonResponse === localisedStrings.mainMenu || buttonResponse=== 'मुख्य मेनू') {
+} else if (buttonResponse === localisedStrings.mainMenu || buttonResponse === 'मुख्य मेनू') {
   console.log('Navigating to main menu');
   await this.message.mainmenu(from, userData.language);
-}
-
-
-if (buttonResponse === "योग अभ्यास पर वापस जाएं" || buttonResponse ==="Back to Yoga Practices") {
+} else if (buttonResponse === "योग अभ्यास पर वापस जाएं" || buttonResponse === "Back to Yoga Practices") {
   console.log('User clicked Back to Yoga Practices');
   if (this.selectedPose) { 
-    await this.message.sendYogaPoseDescription(from, this.selectedPose, userData.language);
+      await this.message.poseselection(from, userData.language);
   } else {
-     console.log('No pose selected for more details.');
-        }
-return;
-}
-if (buttonResponse === localisedStrings.backToMainMenu || buttonResponse === 'मुख्य मेनू पर वापस जाएं') {
+      console.log('No pose selected for more details.');
+  }
+  return;
+} else if (buttonResponse === localisedStrings.backToMainMenu || buttonResponse === 'मुख्य मेनू पर वापस जाएं') {
   console.log('Navigating to main menu');
   await this.message.mainmenu(from, userData.language);
 }
 
+// Meditation Techniques
+else if (buttonResponse == 'Meditation Techniques' || buttonResponse == "ध्यान तकनीकें") {
+  console.log('Meditation Techniques');
+  await this.message.meditationSelection(from, userData.language);
+  return; 
+} else if (mediButtons.includes(buttonResponse)) {
+  this.selectedstyle = buttonResponse; 
+  console.log(`User selected style: ${this.selectedstyle}`);
+  await this.message.sendMeditationDescription(from, this.selectedstyle, userData.language);
+  return;
+} else if (buttonResponse === "ध्यान के लिए अधिक विवरण" || buttonResponse === "More Details for Meditation") {
+  if (this.selectedstyle) { 
+      await this.message.sendMoreMeditationDetails(from, this.selectedstyle, userData.language);
+  } else {
+      console.log('No style selected for more details.');
+  }
+  return;
+} else if (buttonResponse === "ध्यान अभ्यासों पर वापस जाएं" || buttonResponse === "Back to Meditation Practices") {
+  console.log('User clicked Back to Meditation Practices');
+  if (this.selectedstyle) { 
+      await this.message.meditationSelection(from, userData.language);
+  } else {
+      console.log('No style selected for more details.');
+  }
+  return;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if (buttonResponse =='Meditation Techniques' ||buttonResponse == "ध्यान तकनीकें" ) {
-  console.log('Meditation Techniques' );
+// Personalized Recommendations
+else if (buttonResponse == 'Personalized Recommendations' || buttonResponse == "व्यक्तिगत सिफारिशें") { 
+  console.log('Personalized Recommendations'); 
+  return; 
+} else if (buttonResponse == 'Tips & Resources' || buttonResponse == "युक्तियाँ और संसाधन") {
+  console.log('युक्तियाँ और संसाधन'); 
   return; 
 } 
 
 
 
 
-if (buttonResponse =='Personalized Recommendations' ||buttonResponse == "व्यक्तिगत सिफारिशें" ) { 
-  console.log('Personalized Recommendations' ); 
-  return; 
-} 
 
-if (buttonResponse =='Tips & Resources' ||buttonResponse == "युक्तियाँ और संसाधन" ) {
-  console.log('युक्तियाँ और संसाधन' ); 
- 
-  return; 
-} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
 }
       
 
-    // When the user sends a message like "hi"
     const { text } = body;
     if (!text || !text.body) {
       console.error('Text or body is missing:', body);
-      return; // Exit if no text or body is provided
+      return; 
     }
 
-    // Get intent and entities from the user's message
     const { intent } = this.intentClassifier.getIntent(text.body);
 
-    // Save the user data before processing intents
     await this.userService.saveUser(userData);
 
-    // Handle greeting intent (e.g., when the user says "hi" or "hello")
     if (intent === 'greeting') {
       const localizedStrings = LocalizationService.getLocalisedString(userData.language); // Localize based on user's language
 
-      // Send a welcome message and language selection prompt
       await this.message.sendWelcomeMessage(from, localizedStrings.welcomeMessage);
       await this.message.sendLanguageSelectionMessage(from, localizedStrings.languageSelection);
-      return; // Stop further processing after handling greeting
+      return; 
     }
-        // Return a success message
+       
     return 'ok';
   }
 }

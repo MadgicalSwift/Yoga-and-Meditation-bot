@@ -11,8 +11,13 @@ export const localisedStrings = {
   mainMenu: "मुख्य मेनू",
   moreDetailsMessage: "यहां चयनित योग शैली को करने के लिए वीडियो ट्यूटोरियल और चरण दिए गए हैं। क्या आप योग अभ्यास पर वापस जाना चाहेंगे या मुख्य मेनू पर?",
   backToYogaPractices: "योग अभ्यास पर वापस जाएं",
-  backToMainMenu: "मुख्य मेनू पर वापस जाएं"
+  backToMainMenu: "मुख्य मेनू पर वापस जाएं",
 
-
+  meditationstyle: "कृपया एक ध्यान शैली चुनें:",
+  stylebutton:["माइंडफुलनेस" , "निर्देशित दृश्यता","प्रेम-करुणा" ,"शरीर स्कैन"],
+  moreDetailsmeditation: "ध्यान के लिए अधिक विवरण",
+ 
+  backToMeditationPractices: "ध्यान अभ्यासों पर वापस जाएं",
+ 
         
 };

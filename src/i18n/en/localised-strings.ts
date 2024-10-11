@@ -16,6 +16,11 @@ export const localisedStrings = {
   backToMainMenu: "Back to Main Menu",
    
 
+  meditationstyle:"Please select a meditation style:",
+  stylebutton:["Mindfulness", "Guided Visualization","Loving-Kindness","Body Scan"],
+  moreDetailsmeditation: "More Details for Meditation",
+  backToMeditationPractices: "Back to Meditation Practices",
+
 
   
     

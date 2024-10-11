@@ -265,7 +265,137 @@ export class SwiftchatMessageService extends MessageService {
       return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
     }
   }
+
+
+  async meditationSelection(from: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language);
+   
+    const messageData = {
+      to: from,
+      type: 'button',
+      button: {
+        body: {
+          type: 'text',
+          text: {
+            body: localisedStrings.meditationstyle,
+          },
+        },
+        buttons: [
+          {
+            type: 'solid',
+            body: localisedStrings.stylebutton[0],
+            reply: localisedStrings.stylebutton[0],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.stylebutton[1],
+            reply: localisedStrings.stylebutton[1],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.stylebutton[2],
+            reply: localisedStrings.stylebutton[2],
+          },
+          {
+            type: 'solid',
+            body: localisedStrings.stylebutton[3],
+            reply: localisedStrings.stylebutton[3],
+          }
+        ],
+        allow_custom_response: false,
+      },
+    };
   
+    return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+  }
+
+    async sendMeditationDescription(from: string, selectedStyle: string, language: string) {
+      const localisedStrings = LocalizationService.getLocalisedString(language);
+       const meditationData = language === 'hindi' ? yogaDatahi : yogaDataEn;
+      const normalizedPose = selectedStyle.trim();
+   const meditationType = meditationData.meditation[normalizedPose];
+  
+      if (meditationType) {
+          const description = meditationType.description; 
+          const responseMessage = `**${selectedStyle}**: \n\n*${description}*`; 
+  
+          const messageData = {
+              to: from,
+              type: 'button',
+              button: {
+                  body: {
+                      type: 'text',
+                      text: {
+                          body: responseMessage,
+                      },
+                  },
+                  buttons: [
+                      {
+                          type: 'solid',
+                          body: localisedStrings.moreDetailsmeditation, 
+                          reply: localisedStrings.moreDetailsmeditation,
+                      },
+                      {
+                          type: 'solid',
+                          body: localisedStrings.mainMenu, 
+                          reply: localisedStrings.mainMenu,
+                      },
+                  ],
+                  allow_custom_response: false, 
+              },
+          };
+  
+          return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+      } 
+  }
+  
+
+  async sendMoreMeditationDetails(from: string, selectedMeditation: string, language: string) {
+    const localisedStrings = LocalizationService.getLocalisedString(language);
+    const meditationData = language === 'hindi' ? yogaDatahi : yogaDataEn;
+
+    const normalizedMeditation = selectedMeditation.trim();
+
+    const meditationType = meditationData.meditation[normalizedMeditation];
+
+    if (meditationType) {
+        const steps = meditationType.steps;
+        const videoUrl = meditationType.videoUrl;
+
+        const moreDetailsMessage = localisedStrings.moreDetailsMessage;
+
+        const responseMessage = `**${selectedMeditation}**\n${moreDetailsMessage}\n\n**Steps**:\n\n${steps}\n\nWatch tutorial: ${videoUrl}`;
+
+        const messageData = {
+            to: from,
+            type: 'button',
+            button: {
+                body: {
+                    type: 'text',
+                    text: {
+                        body: responseMessage,
+                    },
+                },
+                buttons: [
+                    {
+                        type: 'solid',
+                        body: localisedStrings.backToMeditationPractices,
+                        reply: localisedStrings.backToMeditationPractices,
+                    },
+                    {
+                        type: 'solid',
+                        body: localisedStrings.backToMainMenu,
+                        reply: localisedStrings.backToMainMenu,
+                    },
+                ],
+                allow_custom_response: false,
+            },
+        };
+
+        return await this.sendMessage(this.baseUrl, messageData, this.apiKey);
+    }
+}
+
   
 
   

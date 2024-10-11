@@ -25,6 +25,32 @@
         "steps": "1. Begin in Supported Child's Pose (Balasana) with a bolster or pillows under your chest.\n2. Move into Supported Bridge Pose (Setu Bandhasana) using a block under your sacrum.\n3. Transition to Reclined Bound Angle Pose (Supta Baddha Konasana), supported by blocks or cushions.\n4. Rest in Legs-Up-The-Wall Pose (Viparita Karani) with your legs elevated against a wall.\n5. Conclude with Savasana, focusing on slow, deep breaths to calm the mind and body.",
         "videoUrl": "https://yoga-videos.com/restorative"
       }
-    }
+    },
+    
+    
+      "meditation": {
+        "Mindfulness": {
+          "description": "Mindfulness meditation focuses on being present in the moment and fully engaged without judgment.",
+          "steps": "1. Sit or lie down in a quiet place.\n2. Close your eyes and focus on your breath.\n3. When thoughts come to your mind, acknowledge them and return your focus to your breath.\n4. Repeat this process for 5-10 minutes.",
+          "videoUrl": "https://meditation-videos.com/mindfulness"
+        },
+        "Guided Visualization": {
+          "description": "Guided visualization uses mental imagery to promote relaxation and focus.",
+          "steps": "1. Sit or lie down in a comfortable position.\n2. Take a deep breath and visualize a peaceful place in your mind.\n3. Focus on the details of that place and allow yourself to feel present there.\n4. Stay focused on that place for 10-15 minutes.",
+          "videoUrl": "https://meditation-videos.com/guided-visualization"
+        },
+        "Loving-Kindness": {
+          "description": "Loving-kindness meditation focuses on cultivating an attitude of love and compassion towards oneself and others.",
+          "steps": "1. Sit in a comfortable position.\n2. Cultivate feelings of love and compassion in your heart.\n3. Send wishes for well-being to yourself and others, such as 'May I be happy.'\n4. Focus on this feeling for 10-15 minutes.",
+          "videoUrl": "https://meditation-videos.com/loving-kindness"
+        },
+        "Body Scan": {
+          "description": "Body scan involves mentally scanning your body to identify areas of tension and releasing them.",
+          "steps": "1. Lie down in a comfortable position.\n2. Start from your feet and gradually focus on each part of your body.\n3. Breathe deeply into areas of tension and release them.\n4. Continue this process for 15-20 minutes.",
+          "videoUrl": "https://meditation-videos.com/body-scan"
+        }
+      }
+    
+    
   }
   
