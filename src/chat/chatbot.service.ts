@@ -64,7 +64,7 @@ export class ChatbotService {
         if (['english', 'hindi'].includes(buttonResponse.toLowerCase())) {
         userData.language = buttonResponse; 
         await this.userService.saveUser(userData); 
-
+        console.log(buttonResponse);
         await this.message.sendLanguageChangedMessage(from, buttonResponse);
         await this.message.mainmenu(from, buttonResponse);
         
@@ -77,15 +77,18 @@ const mediButtons = userData.language === 'hindi' ? ["माइंडफुल�
 
 if (buttonResponse == localisedStrings.guidebutton[0] || buttonResponse == 'योग अभ्यास') {
   await this.message.poseselection(from, userData.language);
+  console.log(buttonResponse);
   return; 
 } else if (PoseButtons.includes(buttonResponse)) {
   this.selectedPose = buttonResponse; 
   await this.message.sendYogaPoseDescription(from, this.selectedPose, userData.language);
+  console.log(buttonResponse);
   return;
 } else if (buttonResponse === 'योग करने के लिए अधिक विवरण' || buttonResponse === localisedStrings.moreDetails) {
   if (this.selectedPose) { 
       await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);
   } 
+  console.log(buttonResponse);
   return;
 } else if (buttonResponse === localisedStrings.mainMenu || buttonResponse === 'मुख्य मेनू') {
   await this.message.mainmenu(from, userData.language);
@@ -93,6 +96,7 @@ if (buttonResponse == localisedStrings.guidebutton[0] || buttonResponse == 'य�
   if (this.selectedPose) { 
       await this.message.poseselection(from, userData.language);
   } 
+  console.log(buttonResponse);
   return;
 } else if (buttonResponse === localisedStrings.backToMainMenu || buttonResponse === 'मुख्य मेनू पर वापस जाएं') {
   await this.message.mainmenu(from, userData.language);

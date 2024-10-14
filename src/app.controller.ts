@@ -23,7 +23,7 @@ export class AppController {
     });
   }
 
-  @Post('/yoga')
+  @Post('/message')
   async handelUserMessage(@Body() body, @Res() res): Promise<void> {
     try {
       const { from, text } = body;

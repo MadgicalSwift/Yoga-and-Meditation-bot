@@ -3,27 +3,27 @@
       "hatha": {
         "description": "Hatha Yoga is the process of balancing the sun (Ha) and moon (Tha). It prepares the body for higher possibilities. Your posture reflects your mental state. By adopting different postures, you can elevate your consciousness.",
         "steps": "1. Begin in Mountain Pose (Tadasana), standing tall with feet together.\n2. Inhale, raise your arms overhead, and gently bend backward into a slight backbend.\n3. Exhale, fold forward into a Standing Forward Bend (Uttanasana).\n4. Step back into a Low Lunge (Anjaneyasana) with the right leg.\n5. Move into Downward-Facing Dog (Adho Mukha Svanasana).\n6. Repeat the sequence, switching sides.\n7. Finish with Corpse Pose (Savasana) for relaxation.",
-        "videoUrl": "https://yoga-videos.com/hatha"
+        "videoUrl": "https://www.youtube.com/watch?v=TeIzRM5vJEw"
       },
       "vinyasa": {
         "description": "Vinyasa Yoga is a dynamic style that flows through poses. It helps in building strength and flexibility.",
         "steps": "1. Start in Downward-Facing Dog (Adho Mukha Svanasana).\n2. Inhale, shift forward to Plank Pose.\n3. Exhale, lower into Chaturanga Dandasana (Four-Limbed Staff Pose).\n4. Inhale, rise to Upward-Facing Dog (Urdhva Mukha Svanasana).\n5. Exhale, return to Downward-Facing Dog.\n6. Flow through this sequence, syncing your breath with each movement.\n7. End in Child's Pose (Balasana) for rest.",
-        "videoUrl": "https://yoga-videos.com/vinyasa"
+        "videoUrl": "https://www.youtube.com/watch?v=JU5BRICMYz8"
       },
       "ashtanga": {
         "description": "Ashtanga Yoga is a rigorous style that follows a specific sequence of poses. It develops strength, flexibility, and balance.",
         "steps": "1. Begin with Sun Salutation A (Surya Namaskar A), performing five rounds.\n2. Follow with Sun Salutation B (Surya Namaskar B), completing five rounds.\n3. Move through the standing series: Warrior I (Virabhadrasana I), Warrior II (Virabhadrasana II), Triangle Pose (Trikonasana), etc.\n4. Transition into the seated series, including Forward Bend (Paschimottanasana) and Marichyasana twists.\n5. Practice the finishing sequence with Shoulder Stand (Sarvangasana), Headstand (Sirsasana), and Lotus Pose (Padmasana).\n6. Conclude with relaxation in Savasana.",
-        "videoUrl": "https://yoga-videos.com/ashtanga"
+        "videoUrl": "https://www.youtube.com/watch?v=xDB8AWGpPjw"
       },
       "yin": {
         "description": "Yin Yoga is a slow-paced style that involves holding poses for longer periods. It provides deep stretching and promotes mental peace.",
         "steps": "1. Begin in Butterfly Pose (Baddha Konasana), holding the pose for 3-5 minutes.\n2. Move into Seated Forward Fold (Paschimottanasana), hold for 3-5 minutes.\n3. Transition into Dragon Pose (Low Lunge), staying on each side for 3-5 minutes.\n4. Move to Reclining Twist (Supta Matsyendrasana), holding each side for 3-5 minutes.\n5. Finish with Savasana, focusing on deep, mindful breathing for relaxation.",
-        "videoUrl": "https://yoga-videos.com/yin"
+        "videoUrl": "https://www.youtube.com/watch?v=_eusSyA53MQ"
       },
       "restorative": {
         "description": "Restorative Yoga focuses on reducing stress and anxiety. It is ideal for physical and mental relaxation.",
         "steps": "1. Begin in Supported Child's Pose (Balasana) with a bolster or pillows under your chest.\n2. Move into Supported Bridge Pose (Setu Bandhasana) using a block under your sacrum.\n3. Transition to Reclined Bound Angle Pose (Supta Baddha Konasana), supported by blocks or cushions.\n4. Rest in Legs-Up-The-Wall Pose (Viparita Karani) with your legs elevated against a wall.\n5. Conclude with Savasana, focusing on slow, deep breaths to calm the mind and body.",
-        "videoUrl": "https://yoga-videos.com/restorative"
+        "videoUrl": "https://www.youtube.com/watch?v=-lXa1FQW0Mg"
       }
     },
     
@@ -32,22 +32,22 @@
         "Mindfulness": {
           "description": "Mindfulness meditation focuses on being present in the moment and fully engaged without judgment.",
           "steps": "1. Sit or lie down in a quiet place.\n2. Close your eyes and focus on your breath.\n3. When thoughts come to your mind, acknowledge them and return your focus to your breath.\n4. Repeat this process for 5-10 minutes.",
-          "videoUrl": "https://meditation-videos.com/mindfulness"
+          "videoUrl": "https://www.youtube.com/watch?v=ssss7V1_eyA"
         },
         "Guided Visualization": {
           "description": "Guided visualization uses mental imagery to promote relaxation and focus.",
           "steps": "1. Sit or lie down in a comfortable position.\n2. Take a deep breath and visualize a peaceful place in your mind.\n3. Focus on the details of that place and allow yourself to feel present there.\n4. Stay focused on that place for 10-15 minutes.",
-          "videoUrl": "https://meditation-videos.com/guided-visualization"
+          "videoUrl": "https://www.youtube.com/watch?v=Rk6BOZbYxKM"
         },
         "Loving-Kindness": {
           "description": "Loving-kindness meditation focuses on cultivating an attitude of love and compassion towards oneself and others.",
           "steps": "1. Sit in a comfortable position.\n2. Cultivate feelings of love and compassion in your heart.\n3. Send wishes for well-being to yourself and others, such as 'May I be happy.'\n4. Focus on this feeling for 10-15 minutes.",
-          "videoUrl": "https://meditation-videos.com/loving-kindness"
+          "videoUrl": "https://www.youtube.com/watch?v=5RUIKTXQk4A"
         },
         "Body Scan": {
           "description": "Body scan involves mentally scanning your body to identify areas of tension and releasing them.",
           "steps": "1. Lie down in a comfortable position.\n2. Start from your feet and gradually focus on each part of your body.\n3. Breathe deeply into areas of tension and release them.\n4. Continue this process for 15-20 minutes.",
-          "videoUrl": "https://meditation-videos.com/body-scan"
+          "videoUrl": "https://www.youtube.com/watch?v=wBgSx56PPP8"
         }
       },
     
@@ -90,9 +90,90 @@
             "description": "Whether it's to relieve stress, improve flexibility, or cultivate inner peace, an intention provides focus and purpose. In meditation, focusing on a single thought, word, or affirmation can deepen your session and help you stay grounded."
           },
           {
+            "tip": "Start your day with a short yoga or meditation session.",
+            "description": "Morning practice helps set a calm and focused tone for the day, energizing the body and clearing the mind. Even just 10 minutes can make a significant difference in your mood and productivity."
+          },
+          {
+            "tip": "Use props like blocks, straps, or blankets during yoga.",
+            "description": "Props can make poses more accessible, allowing for proper alignment without strain. They are especially helpful for beginners or those with limited flexibility, providing support and stability."
+          },
+          {
+            "tip": "Hydrate before and after yoga practice.",
+            "description": "Drinking water helps your muscles function properly and prevents cramping. Hydration also supports your body's ability to detoxify and aids in recovery after a session."
+          },
+          {
+            "tip": "Incorporate a variety of poses in your routine.",
+            "description": "Mixing different types of poses (standing, seated, balance, inversion) ensures that you work on different muscle groups and improve overall flexibility, strength, and balance."
+          },
+          {
+            "tip": "Take breaks during long yoga or meditation sessions.",
+            "description": "If you're practicing for more than 30 minutes, it's okay to pause, especially if you feel fatigued. Brief rests help you stay mindful and prevent overexertion."
+          },
+          {
+            "tip": "Use calming music during your practice.",
+            "description": "Soft, instrumental music can enhance relaxation and focus during yoga or meditation. It helps to create an ambiance that promotes peace and inner calm."
+          },
+          {
+            "tip": "Practice yoga barefoot for better grip and balance.",
+            "description": "Being barefoot allows for better connection to the ground, improving stability in standing poses. It also helps engage the muscles in your feet, contributing to balance and posture."
+          },
+          {
+            "tip": "Keep a yoga or meditation journal.",
+            "description": "Recording your experiences can help you track progress, notice patterns, and set new goals. Reflecting on your practice deepens your understanding and personal growth."
+          },
+          {
+            "tip": "Gradually increase the difficulty of your yoga poses.",
+            "description": "Once you're comfortable with basic poses, challenge yourself by adding more advanced postures. This progressive approach helps you build strength and flexibility safely over time."
+          },
+          {
+            "tip": "Wear comfortable, breathable clothing for yoga practice.",
+            "description": "Clothing that allows for a full range of motion without restriction will make your practice more comfortable. Choose materials that wick away moisture to stay cool and dry during sessions."
+          },          
+          {
             "tip": "Stay mindful off the mat.",
             "description": "Yoga and meditation teach awareness and presence, and these principles can be applied throughout your day. Practice deep breathing in stressful moments, maintain good posture while sitting or standing, and carry the sense of peace from your practice into daily life."
+          },
+          {
+            "tip": "Start your day with a short yoga or meditation session.",
+            "description": "Morning practice helps set a calm and focused tone for the day, energizing the body and clearing the mind. Even just 10 minutes can make a significant difference in your mood and productivity."
+          },
+          {
+            "tip": "Use props like blocks, straps, or blankets during yoga.",
+            "description": "Props can make poses more accessible, allowing for proper alignment without strain. They are especially helpful for beginners or those with limited flexibility, providing support and stability."
+          },
+          {
+            "tip": "Hydrate before and after yoga practice.",
+            "description": "Drinking water helps your muscles function properly and prevents cramping. Hydration also supports your body's ability to detoxify and aids in recovery after a session."
+          },
+          {
+            "tip": "Incorporate a variety of poses in your routine.",
+            "description": "Mixing different types of poses (standing, seated, balance, inversion) ensures that you work on different muscle groups and improve overall flexibility, strength, and balance."
+          },
+          {
+            "tip": "Take breaks during long yoga or meditation sessions.",
+            "description": "If you're practicing for more than 30 minutes, it's okay to pause, especially if you feel fatigued. Brief rests help you stay mindful and prevent overexertion."
+          },
+          {
+            "tip": "Use calming music during your practice.",
+            "description": "Soft, instrumental music can enhance relaxation and focus during yoga or meditation. It helps to create an ambiance that promotes peace and inner calm."
+          },
+          {
+            "tip": "Practice yoga barefoot for better grip and balance.",
+            "description": "Being barefoot allows for better connection to the ground, improving stability in standing poses. It also helps engage the muscles in your feet, contributing to balance and posture."
+          },
+          {
+            "tip": "Keep a yoga or meditation journal.",
+            "description": "Recording your experiences can help you track progress, notice patterns, and set new goals. Reflecting on your practice deepens your understanding and personal growth."
+          },
+          {
+            "tip": "Gradually increase the difficulty of your yoga poses.",
+            "description": "Once you're comfortable with basic poses, challenge yourself by adding more advanced postures. This progressive approach helps you build strength and flexibility safely over time."
+          },
+          {
+            "tip": "Wear comfortable, breathable clothing for yoga practice.",
+            "description": "Clothing that allows for a full range of motion without restriction will make your practice more comfortable. Choose materials that wick away moisture to stay cool and dry during sessions."
           }
+          
         ]
       
       
