@@ -33,7 +33,14 @@ export abstract class MessageService {
   abstract sendLanguageChangedMessage(from: string, language: string);
   abstract mainmenu(from: string, language: string);
   abstract poseselection(from: string, language: string);
+  abstract sendYogaPoseDescription(from: string, selectedPose: string, language: string);
+  abstract sendMoreYogaDetails(from: string, selectedPose: string, language: string);
+  abstract meditationSelection(from: string, language: string);
+  abstract sendMeditationDescription(from: string, selectedstyle: string, language: string);
+  abstract sendMoreMeditationDetails(from: string, selectedstyle: string, language: string);
+  abstract sendRandomYogaMeditationTip(from: string, language: string);
+
   abstract sendTextMessage(from: string, language: string);
   abstract  sendResponseToTheUSer(from: string, res:string,language: string) 
-  //abstract sendYogaPoseDescription(from: string, selectedPose: string, language: string);
+  
 }

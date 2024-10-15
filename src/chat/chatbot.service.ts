@@ -14,6 +14,8 @@ export class ChatbotService {
   private readonly userService: UserService;
   private readonly swiftchatService: SwiftchatMessageService; // Add this line
   private readonly knodwldgebase: AiBotService;
+  private selectedPose: string | null = null; 
+  private selectedstyle: string | null = null;
 
   constructor(
     intentClassifier: IntentClassifier,
@@ -38,88 +40,127 @@ export class ChatbotService {
     if (!userData) {
       await this.userService.createUser(from, 'english', botID);
     }
-    // Ensure the user has a default language set if it's not already there
-
     if (type === 'persistent_menu_response') {
+      // Check if the body exists and has the expected structure
       const menuBody = body.persistent_menu_response?.body;
-      switch (menuBody) {
-        case 'change language':
-          await this.message.sendLanguageSelectionMessage(
-            from,
-            userData.language,
-          );
+    
+      if (!menuBody) {
+        console.error('Menu body is undefined or missing');
+        return; // Exit if the menu body is not present
+      }
+    
+      try {
+        // Use if-else instead of switch
+        if (menuBody === 'change language') {
+          if (!userData.language) {
+            console.error('User language is undefined');
+            return; // Exit if the user language is not defined
+          }
+    
+          await this.message.sendLanguageSelectionMessage(from, userData.language);
           return; // End processing after handling the persistent menu response
-
-        default:
+        } else {
           console.error('Unexpected menu option:', menuBody);
           return; // Handle unexpected options
+        }
+      } catch (error) {
+        console.error('Error processing persistent menu response:', error);
+        // Optionally handle sending an error response to the user
       }
     }
-    // Handle user button responses
-    else if (type == 'button_response') {
-      const buttonResponse = body.button_response?.body; // Get the button response body
+     
+    
 
-      // Check if the response is for language selection
-      if (['english', 'hindi'].includes(buttonResponse.toLowerCase())) {
-        userData.language = buttonResponse; // Update user language
-        await this.userService.saveUser(userData); // Save updated language
-
-        // Send confirmation message for the language change
+    else  if (type == 'button_response') {
+      const buttonResponse = body.button_response?.body; 
+        if (['english', 'hindi'].includes(buttonResponse.toLowerCase())) {
+        userData.language = buttonResponse; 
+        await this.userService.saveUser(userData); 
+        console.log(buttonResponse);
         await this.message.sendLanguageChangedMessage(from, buttonResponse);
         await this.message.mainmenu(from, buttonResponse);
-        return;
+        
+        return; 
       }
 
-      const Options = [
-        'Yoga Practices',
-        'Meditation Techniques',
-        'Personalized Recommendations',
-        'Tips & Resources',
-        'योग अभ्यास',
-        'ध्यान तकनीकें',
-        'व्यक्तिगत सिफारिशें',
-        'युक्तियाँ और संसाधन',
-      ];
-      if (
-        buttonResponse == 'Yoga Practices' ||
-        buttonResponse == 'योग अभ्यास'
-      ) {
-        console.log('Selected menu', buttonResponse);
-        await this.message.poseselection(from, userData.language);
-        return;
-      }
+          
+const PoseButtons = userData.language === 'hindi' ? ['हठ', 'विन्यास', 'अस्थांग', 'यिन', 'विश्राम'] : ['Hatha', 'Vinyasa', 'Ashtanga', 'Yin', 'Restorative'];
+const mediButtons = userData.language === 'hindi' ? ["माइंडफुलनेस" , "निर्देशित दृश्यता","प्रेम-करुणा" ,"शरीर स्कैन"] : ["Mindfulness", "Guided Visualization","Loving-Kindness","Body Scan"];
 
-      if (
-        buttonResponse == 'Meditation Techniques' ||
-        buttonResponse == 'ध्यान तकनीकें'
-      ) {
-        console.log('Meditation Techniques');
-        return;
-      }
+if (buttonResponse == localisedStrings.guidebutton[0] || buttonResponse == 'योग अभ्यास') {
+  await this.message.poseselection(from, userData.language);
+  console.log(buttonResponse);
+  console.log('Yoga Practice Selected');
+  return; 
+}else if (PoseButtons.includes(buttonResponse)) {
+  this.selectedPose = buttonResponse; 
+  await this.message.sendYogaPoseDescription(from, this.selectedPose, userData.language);
+  console.log(buttonResponse);
+  console.log('Selected Pose:', this.selectedPose);
+  return;
+} else if (buttonResponse === 'योग करने के लिए अधिक विवरण' || buttonResponse === localisedStrings.moreDetails) {
+  if (this.selectedPose) { 
+      await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);
+      console.log('Sending More Yoga Details for:', this.selectedPose);  
+  } 
+  
+  return;
+} else if (buttonResponse === localisedStrings.mainMenu || buttonResponse === 'मुख्य मेनू') {
+  await this.message.mainmenu(from, userData.language);
+} else if (buttonResponse === "योग अभ्यास पर वापस जाएं" || buttonResponse === localisedStrings.backToYogaPractices) {
+  if (this.selectedPose) { 
+      await this.message.poseselection(from, userData.language);
+      console.log('Returning to Pose Selection');
+  } 
+  
+  return;
+} else if (buttonResponse === localisedStrings.backToMainMenu || buttonResponse === 'मुख्य मेनू पर वापस जाएं') {
+  await this.message.mainmenu(from, userData.language);
+}
+// Meditation Techniques
+else if (buttonResponse == localisedStrings.guidebutton[1] || buttonResponse == "ध्यान तकनीकें") {
+  await this.message.meditationSelection(from, userData.language);
+  console.log('Meditation Selection');
+  return; 
+} else if (mediButtons.includes(buttonResponse)) {
+  this.selectedstyle = buttonResponse; 
+  console.log('Selected Meditation Style:', this.selectedstyle);
+  await this.message.sendMeditationDescription(from, this.selectedstyle, userData.language);
+  return;
+} else if (buttonResponse === "ध्यान के लिए अधिक विवरण" || buttonResponse === localisedStrings.moreDetailsmeditation) {
+  if (this.selectedstyle) { 
+      await this.message.sendMoreMeditationDetails(from, this.selectedstyle, userData.language);
+      console.log('Sending More Meditation Details for:', this.selectedstyle);
 
-      if (
-        buttonResponse == 'Personalized Recommendations' ||
-        buttonResponse == 'व्यक्तिगत सिफारिशें'
-      ) {
+  } 
+  return;
+} else if (buttonResponse === "ध्यान अभ्यासों पर वापस जाएं" || buttonResponse === localisedStrings.backToMeditationPractices) {
+  if (this.selectedstyle) { 
+      await this.message.meditationSelection(from, userData.language);
+      console.log('Returning to Meditation Selection');
+  } 
+  return;
+}
+else if (buttonResponse == localisedStrings.guidebutton[2] || buttonResponse == "व्यक्तिगत सिफारिशें") {
         await this.message.sendTextMessage(from, userData.language);
         console.log('Personalized Recommendations', userData);
         return;
       }
-      if (
-        buttonResponse == 'Tips & Resources' ||
-        buttonResponse == 'युक्तियाँ और संसाधन'
-      ) {
-        console.log('युक्तियाँ और संसाधन');
-
-        return;
-      }
+else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == "युक्तियाँ और संसाधन") {
+        await this.message.sendRandomYogaMeditationTip(from, userData.language);
+        return; 
+      } 
       console.log('buttonResponse', buttonResponse);
-    } else if (type == 'text' && !body.text.body.includes("Hi")) {
+    }  
+  
+    /* 
+    
+    if (type == 'text' && !body.text.body.includes("Hi")) {
       console.log('please ask you query');
       await this.handelPersonalrecomadationResponse(body.text.body,userData.mobileNumber,userData.language);
     }
 
-    if (body.text.body === 'Hi') {
+    if (body.text.body === 'hi') {
       const localizedStrings = LocalizationService.getLocalisedString(
         userData.language,
       ); // Localize based on user's language
@@ -137,32 +178,58 @@ export class ChatbotService {
         from,
         localizedStrings.languageSelection,
       );
-      return; // Stop further processing after handling greeting
+      return;
     }
-    // Return a success message
+   
     return 'ok';
   }
+ */
 
-  async handelPersonalrecomadationResponse(question: string, from: string, language: string) {
-
-    // Fetch user data based on mobile number
-    const userData = await this.userService.findUserByMobileNumber(from, process.env.BOT_ID);
+  if (type === 'text') {
+   
+    const messageBody = body.text?.body;
   
-    // Check if the user exists
+    if (!messageBody) {
+      console.log('Received an empty message body.');
+      return; // Exit if the message body is not present
+    }
+  
+    if (!messageBody.toLowerCase().includes("hi")) {
+      console.log('Please ask your query.');
+      await this.handelPersonalrecomadationResponse(messageBody, userData.mobileNumber, userData.language);
+      return; 
+    }
+  
+    if (messageBody.toLowerCase() === 'hi') {
+      const localizedStrings = LocalizationService.getLocalisedString(userData.language); // Localize based on user's language
+  
+      await this.message.sendWelcomeMessage(from, localizedStrings.welcomeMessage);
+      
+      userData.chat_history = null;
+      userData.chat_summary = null;
+  
+      console.log('userData', userData);
+      await this.userService.saveUser(userData);
+  
+      await this.message.sendLanguageSelectionMessage(from, localizedStrings.languageSelection);
+      return; 
+    }
+  }
+  
+  return 'ok';
+} 
+  async handelPersonalrecomadationResponse(question: string, from: string, language: string) {
+    const userData = await this.userService.findUserByMobileNumber(from, process.env.BOT_ID);
     if (!userData) {
       console.error('User not found for mobileNumber:', from);
       return;
     }
-  
-    // Ensure chat_history and summary_history are initialized
     if (!userData.chat_history) {
       userData.chat_history = [];
     }
     if (!userData.chat_summary) {
       userData.chat_summary = '';
     }
-  
-    // Call the knowledge base API to get the recommendation
     const response = await this.knodwldgebase.getYogaRecommendation(
       question, 
       userData.chat_history, 
@@ -187,11 +254,9 @@ export class ChatbotService {
   
     // Log the updated user data
     console.log("Updated user data:", userData);
-  
-    // Send response back to the user
     await this.message.sendResponseToTheUSer(from, response.response, language);
   
-    // Save updated user data (if you're storing in DB)
+    
     await this.userService.updateUserHistory(
       from, 
       process.env.BOT_ID, 
@@ -199,10 +264,7 @@ export class ChatbotService {
       userData.chat_summary
     );
   }
-  
-  
-  
-  
+   
 }
 
 export default ChatbotService;
