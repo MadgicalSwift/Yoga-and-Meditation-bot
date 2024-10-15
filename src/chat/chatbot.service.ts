@@ -35,37 +35,30 @@ export class ChatbotService {
     const { from, type } = body;
     const botID = process.env.BOT_ID;
 
-    // Fetch user data based on mobile number and bot ID
     const userData = await this.userService.findUserByMobileNumber(from, botID);
     if (!userData) {
       await this.userService.createUser(from, 'english', botID);
     }
     if (type === 'persistent_menu_response') {
-      // Check if the body exists and has the expected structure
+      
       const menuBody = body.persistent_menu_response?.body;
     
       if (!menuBody) {
         console.error('Menu body is undefined or missing');
-        return; // Exit if the menu body is not present
+        return; 
       }
     
       try {
-        // Use if-else instead of switch
+        
         if (menuBody === 'change language') {
-          if (!userData.language) {
-            console.error('User language is undefined');
-            return; // Exit if the user language is not defined
+          if (!userData.language) { 
+            return;  
           }
-    
           await this.message.sendLanguageSelectionMessage(from, userData.language);
-          return; // End processing after handling the persistent menu response
-        } else {
-          console.error('Unexpected menu option:', menuBody);
-          return; // Handle unexpected options
-        }
+          return;
+        } 
       } catch (error) {
         console.error('Error processing persistent menu response:', error);
-        // Optionally handle sending an error response to the user
       }
     }
      
@@ -76,7 +69,6 @@ export class ChatbotService {
         if (['english', 'hindi'].includes(buttonResponse.toLowerCase())) {
         userData.language = buttonResponse; 
         await this.userService.saveUser(userData); 
-        console.log(buttonResponse);
         await this.message.sendLanguageChangedMessage(from, buttonResponse);
         await this.message.mainmenu(from, buttonResponse);
         
@@ -86,33 +78,25 @@ export class ChatbotService {
           
 const PoseButtons = userData.language === 'hindi' ? ['हठ', 'विन्यास', 'अस्थांग', 'यिन', 'विश्राम'] : ['Hatha', 'Vinyasa', 'Ashtanga', 'Yin', 'Restorative'];
 const mediButtons = userData.language === 'hindi' ? ["माइंडफुलनेस" , "निर्देशित दृश्यता","प्रेम-करुणा" ,"शरीर स्कैन"] : ["Mindfulness", "Guided Visualization","Loving-Kindness","Body Scan"];
-
+//yoga practices
 if (buttonResponse == localisedStrings.guidebutton[0] || buttonResponse == 'योग अभ्यास') {
   await this.message.poseselection(from, userData.language);
-  console.log(buttonResponse);
-  console.log('Yoga Practice Selected');
   return; 
 }else if (PoseButtons.includes(buttonResponse)) {
   this.selectedPose = buttonResponse; 
   await this.message.sendYogaPoseDescription(from, this.selectedPose, userData.language);
-  console.log(buttonResponse);
-  console.log('Selected Pose:', this.selectedPose);
   return;
 } else if (buttonResponse === 'योग करने के लिए अधिक विवरण' || buttonResponse === localisedStrings.moreDetails) {
   if (this.selectedPose) { 
-      await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);
-      console.log('Sending More Yoga Details for:', this.selectedPose);  
+      await this.message.sendMoreYogaDetails(from, this.selectedPose, userData.language);  
   } 
-  
   return;
 } else if (buttonResponse === localisedStrings.mainMenu || buttonResponse === 'मुख्य मेनू') {
   await this.message.mainmenu(from, userData.language);
 } else if (buttonResponse === "योग अभ्यास पर वापस जाएं" || buttonResponse === localisedStrings.backToYogaPractices) {
   if (this.selectedPose) { 
       await this.message.poseselection(from, userData.language);
-      console.log('Returning to Pose Selection');
-  } 
-  
+  }   
   return;
 } else if (buttonResponse === localisedStrings.backToMainMenu || buttonResponse === 'मुख्य मेनू पर वापस जाएं') {
   await this.message.mainmenu(from, userData.language);
@@ -120,37 +104,32 @@ if (buttonResponse == localisedStrings.guidebutton[0] || buttonResponse == 'य�
 // Meditation Techniques
 else if (buttonResponse == localisedStrings.guidebutton[1] || buttonResponse == "ध्यान तकनीकें") {
   await this.message.meditationSelection(from, userData.language);
-  console.log('Meditation Selection');
   return; 
 } else if (mediButtons.includes(buttonResponse)) {
   this.selectedstyle = buttonResponse; 
-  console.log('Selected Meditation Style:', this.selectedstyle);
   await this.message.sendMeditationDescription(from, this.selectedstyle, userData.language);
   return;
 } else if (buttonResponse === "ध्यान के लिए अधिक विवरण" || buttonResponse === localisedStrings.moreDetailsmeditation) {
   if (this.selectedstyle) { 
       await this.message.sendMoreMeditationDetails(from, this.selectedstyle, userData.language);
-      console.log('Sending More Meditation Details for:', this.selectedstyle);
-
   } 
   return;
 } else if (buttonResponse === "ध्यान अभ्यासों पर वापस जाएं" || buttonResponse === localisedStrings.backToMeditationPractices) {
   if (this.selectedstyle) { 
       await this.message.meditationSelection(from, userData.language);
-      console.log('Returning to Meditation Selection');
   } 
   return;
 }
+//personalized recom.
 else if (buttonResponse == localisedStrings.guidebutton[2] || buttonResponse == "व्यक्तिगत सिफारिशें") {
         await this.message.sendTextMessage(from, userData.language);
-        console.log('Personalized Recommendations', userData);
         return;
       }
+// tips
 else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == "युक्तियाँ और संसाधन") {
         await this.message.sendRandomYogaMeditationTip(from, userData.language);
         return; 
       } 
-      console.log('buttonResponse', buttonResponse);
     }  
     
 
@@ -164,7 +143,6 @@ else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == 
     }
   
     if (!messageBody.toLowerCase().includes("hi")) {
-      console.log('Please ask your query.');
       await this.handelPersonalrecomadationResponse(messageBody, userData.mobileNumber, userData.language);
       return; 
     }
@@ -218,8 +196,6 @@ else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == 
     } else {
       console.warn('Response does not contain full_history or summary_history');
     }
-  
-    console.log("Updated user data:", userData);
     await this.message.sendResponseToTheUSer(from, response.response, language);
   
     
