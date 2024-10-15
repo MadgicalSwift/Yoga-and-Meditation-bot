@@ -152,38 +152,7 @@ else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == 
       } 
       console.log('buttonResponse', buttonResponse);
     }  
-  
-    /* 
     
-    if (type == 'text' && !body.text.body.includes("Hi")) {
-      console.log('please ask you query');
-      await this.handelPersonalrecomadationResponse(body.text.body,userData.mobileNumber,userData.language);
-    }
-
-    if (body.text.body === 'hi') {
-      const localizedStrings = LocalizationService.getLocalisedString(
-        userData.language,
-      ); // Localize based on user's language
-     
-      // Send a welcome message and language selection prompt
-      await this.message.sendWelcomeMessage(
-        from,
-        localizedStrings.welcomeMessage,
-      );
-      userData.chat_history=null
-      userData.chat_summary=null
-    console.log('userData', userData)
-    this.userService.saveUser(userData);
-      await this.message.sendLanguageSelectionMessage(
-        from,
-        localizedStrings.languageSelection,
-      );
-      return;
-    }
-   
-    return 'ok';
-  }
- */
 
   if (type === 'text') {
    
@@ -191,7 +160,7 @@ else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == 
   
     if (!messageBody) {
       console.log('Received an empty message body.');
-      return; // Exit if the message body is not present
+      return; 
     }
   
     if (!messageBody.toLowerCase().includes("hi")) {
@@ -201,7 +170,7 @@ else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == 
     }
   
     if (messageBody.toLowerCase() === 'hi') {
-      const localizedStrings = LocalizationService.getLocalisedString(userData.language); // Localize based on user's language
+      const localizedStrings = LocalizationService.getLocalisedString(userData.language); 
   
       await this.message.sendWelcomeMessage(from, localizedStrings.welcomeMessage);
       
@@ -235,24 +204,21 @@ else if (buttonResponse == localisedStrings.guidebutton[3] || buttonResponse == 
       userData.chat_history, 
       userData.chat_summary
     );
-  
-    // Add some debug logging for the response
     
   console.log("Response from knowledge base:", response);
-    // Append new entries to chat history and update summary history
+   
     if (response) {
       if (response.full_history) {
-        // Append new chat history to the existing one
+       
         userData.chat_history = [...userData.chat_history, ...response.full_history];
       }
-      if (response.summary_history !== undefined) { // Allow empty summary
+      if (response.summary_history !== undefined) { 
         userData.chat_summary = response.summary_history;
       }
     } else {
       console.warn('Response does not contain full_history or summary_history');
     }
   
-    // Log the updated user data
     console.log("Updated user data:", userData);
     await this.message.sendResponseToTheUSer(from, response.response, language);
   
